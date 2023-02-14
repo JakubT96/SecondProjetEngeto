@@ -1,5 +1,4 @@
 package com.example.demo;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -8,39 +7,41 @@ import java.util.Collection;
 
 @RestController
 public class ProductController {
-    @GetMapping("/hello")
+
+
+    @GetMapping("/hello")      //FUNGUJE
     public String hello() {
         return "Aplikace druhého projetu ENGETO!";
     }
 
-    @GetMapping("/product")
+    @GetMapping("/allProduct")     //FUNGUJE
     public Collection <Product> loadAllAvailableItems()throws SQLException{
         return ProductService.LoadAllAvailableItems();
     }
 
 
-    @GetMapping ("productID/{partNumber}")
-    public int loadProductById (@PathVariable("id")int id) throws SQLException{
+   @GetMapping ("productID/{id}")
+    public Product loadProductById (@PathVariable(value = "id")int id) throws SQLException{
         return ProductService.LoadProductByID(id);
 }
 
-    @PostMapping("/product")
+    @PostMapping("/SaveProduct")
     public Product saveItem (@RequestBody Product product)throws SQLException{
-        Integer generatedId = ProductService.SaveItem(product);
-        product.setId(generatedId);
-        return product;
+        return ProductService.saveItem(product);
     }
 
 
-    @PutMapping("/product/{id}/{price}")
-    public void updatePriceById (@PathVariable("id") int idChangePrice, @PathVariable("price")int newPrice)throws SQLException{
-        ProductService.UpdatePriceById(idChangePrice , newPrice);
+    @PutMapping("/UpdateProduct/{id}/{price}")
+    public void updatePriceById (@PathVariable("id") int id, @PathVariable("price") BigDecimal price)throws SQLException{
+      ProductService.UpdatePriceById(id,price);
+
     }
 
 
-    @DeleteMapping ("/product")
+    @DeleteMapping ("/DeleteProduct")     //FUNGUJE
     public void deleteOutOfSaleItem ()throws SQLException{
     ProductService.DeleteOutSaleItems();
 }
+
 
 }
