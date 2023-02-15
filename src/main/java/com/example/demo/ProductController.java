@@ -20,21 +20,21 @@ public class ProductController {
     }
 
 
-   @GetMapping ("productID/{id}")
-    public Product loadProductById (@PathVariable(value = "id")int id) throws SQLException{
+    @GetMapping ("/productID/{id}")
+    public Product loadProductById (@PathVariable(value = "id") int id) throws SQLException{
         return ProductService.LoadProductByID(id);
-}
+    }
+
 
     @PostMapping("/SaveProduct")
-    public Product saveItem (@RequestBody Product product)throws SQLException{
-        return ProductService.saveItem(product);
+    public Product saveItem (@RequestBody Product product) throws SQLException{
+        return ProductService. saveItem(product);
     }
 
 
     @PutMapping("/UpdateProduct/{id}/{price}")
-    public void updatePriceById (@PathVariable("id") int id, @PathVariable("price") BigDecimal price)throws SQLException{
-      ProductService.UpdatePriceById(id,price);
-
+    public void updatePriceByID(@PathVariable(value = "id") int id, @RequestParam(value = "price") BigDecimal price) throws SQLException {
+       ProductService.UpdatePriceByID(id, price);
     }
 
 
