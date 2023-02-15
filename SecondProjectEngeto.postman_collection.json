@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "1f4d9603-a633-4e96-a2e4-fc134b9e3da6",
+		"name": "SecondProjectEngeto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24948116"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
