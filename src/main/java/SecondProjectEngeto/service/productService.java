@@ -1,5 +1,6 @@
-package com.example.demo;
+package SecondProjectEngeto.service;
 
+import com.example.demo.Product;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Service
 
-public class ProductService {
+public class productService {
+    static Statement statement;
 
     static Connection connnection;
 
@@ -26,9 +28,8 @@ public class ProductService {
         }
     }
 
-    public ProductService() throws SQLException {
+    public productService() throws SQLException {
     }
-    static Statement statement;
 
     static {
         try {
@@ -38,7 +39,7 @@ public class ProductService {
         }
     }
 
-    static Collection<Product> LoadAllAvailableItems() throws SQLException {
+    public static Collection<Product> loadAllAvailableItems() throws SQLException {
         statement = connnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
             List<Product> actualProductList = new ArrayList<>();
@@ -50,16 +51,14 @@ public class ProductService {
     }
     private static Product extractItemData(ResultSet resultSet)  throws SQLException{
         return new Product(
-                resultSet.getInt(1),
-                resultSet.getInt(2),
-                resultSet.getString(3),
-                resultSet.getString(4),
-                resultSet.getBoolean(5),
-                resultSet.getBigDecimal(6)
-        );
+                resultSet.getInt("id"),
+                resultSet.getInt("partNumber"),
+                resultSet.getString("name"),
+                resultSet.getString("description"),
+                resultSet.getBoolean("isForSale"),
+                resultSet.getBigDecimal("price"));
     }
-
-       public static Product LoadProductByID(int id) throws SQLException {
+       public static Product loadProductByID(int id) throws SQLException {
            statement = connnection.createStatement();
            ResultSet resultSet = statement.executeQuery("SELECT * FROM product WHERE id = "+id+"");
            resultSet.next();
@@ -78,13 +77,13 @@ public class ProductService {
         return product;
     }
 
-    public static void UpdatePriceByID(int id, BigDecimal price)  throws SQLException {
+    public static void updatePriceByID(int id, BigDecimal price)  throws SQLException {
         statement = connnection.createStatement();
         String sql1 = "UPDATE product SET price = "+price+" WHERE id = "+id+" ";
         statement.executeUpdate(sql1);
     }
 
-    static void DeleteOutSaleItems() throws SQLException {
+    public static void deleteOutSaleItems() throws SQLException {
         statement = connnection.createStatement();
         String sql2 = "DELETE FROM product WHERE isForSale = '0' ";
         statement.executeUpdate(sql2);

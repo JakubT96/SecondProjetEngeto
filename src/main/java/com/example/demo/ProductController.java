@@ -1,9 +1,9 @@
 package com.example.demo;
+import SecondProjectEngeto.service.productService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @RestController
@@ -14,29 +14,29 @@ public class ProductController {
         return "Aplikace druhého projetu ENGETO!";
     }
 
-    @GetMapping("/allProduct")
+    @GetMapping("/all-items")
     public Collection <Product> loadAllAvailableItems()throws SQLException{
-        return ProductService.LoadAllAvailableItems();
+        return productService.loadAllAvailableItems();
     }
 
-    @GetMapping ("/productID/{id}")
+    @GetMapping ("/product-ID/{id}")
     public Product loadProductById (@PathVariable(value ="id") int id) throws SQLException{
-        return ProductService.LoadProductByID(id);
+        return productService.loadProductByID(id);
     }
 
-    @PostMapping("/SaveProduct")
+    @PostMapping("/save-item")
     public Product saveItem (@RequestBody Product product) throws SQLException{
-        return ProductService.saveItem(product);
+        return productService.saveItem(product);
     }
 
-    @PostMapping("/UpdateProduct/{id}/{price}")
+    @PatchMapping("/update-product/{id}/{price}")
     public void updatePriceByID(@PathVariable(value = "id") int id,@PathVariable(value = "price") BigDecimal price) throws SQLException {
-       ProductService.UpdatePriceByID(id, price);
+       productService.updatePriceByID(id, price);
     }
 
-    @DeleteMapping ("/DeleteProduct")
+    @DeleteMapping ("/delete-item")
     public void deleteOutOfSaleItem ()throws SQLException{
-    ProductService.DeleteOutSaleItems();
+    productService.deleteOutSaleItems();
 }
 
 
