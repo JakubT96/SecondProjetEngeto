@@ -1,6 +1,5 @@
-package SecondProjectEngeto.service;
+package com.example.demo;
 
-import com.example.demo.Product;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Service
 
-public class productService {
+public class ProductService {
     static Statement statement;
 
     static Connection connnection;
@@ -28,7 +27,7 @@ public class productService {
         }
     }
 
-    public productService() throws SQLException {
+    public ProductService() throws SQLException {
     }
 
     static {
@@ -39,7 +38,7 @@ public class productService {
         }
     }
 
-    public static Collection<Product> loadAllAvailableItems() throws SQLException {
+    public Collection<Product> loadAllAvailableItems() throws SQLException {
         statement = connnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
             List<Product> actualProductList = new ArrayList<>();
@@ -58,14 +57,14 @@ public class productService {
                 resultSet.getBoolean("isForSale"),
                 resultSet.getBigDecimal("price"));
     }
-       public static Product loadProductByID(int id) throws SQLException {
+       public Product loadProductByID(int id) throws SQLException {
            statement = connnection.createStatement();
            ResultSet resultSet = statement.executeQuery("SELECT * FROM product WHERE id = "+id+"");
            resultSet.next();
            return  extractItemData(resultSet);
        }
 
-    public static Product saveItem(Product product) throws SQLException {
+    public Product saveItem(Product product) throws SQLException {
         statement = connnection.createStatement();
         String sqlString = "INSERT INTO product(id,partNumber,name,description,isForSale,price) " +
                 "VALUES ('"+product.getId()+"','"+product.getPartNumber()+"','"+product.getName()+"','"+product.getDescription()+"',"+product.getForSale()+","+product.getPrice()+")";
@@ -77,13 +76,13 @@ public class productService {
         return product;
     }
 
-    public static void updatePriceByID(int id, BigDecimal price)  throws SQLException {
+    public void updatePriceByID(int id, BigDecimal price)  throws SQLException {
         statement = connnection.createStatement();
         String sql1 = "UPDATE product SET price = "+price+" WHERE id = "+id+" ";
         statement.executeUpdate(sql1);
     }
 
-    public static void deleteOutSaleItems() throws SQLException {
+    public void deleteOutSaleItems() throws SQLException {
         statement = connnection.createStatement();
         String sql2 = "DELETE FROM product WHERE isForSale = '0' ";
         statement.executeUpdate(sql2);
