@@ -33,16 +33,40 @@
 		{
 			"name": "UpdateProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/update-product/1/111",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"update-product",
+						"1",
+						"111"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "DeleteProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/delete-item",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"delete-item"
+					]
+				}
 			},
 			"response": []
 		}
